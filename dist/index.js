@@ -8889,8 +8889,8 @@ function pullRequests(author) {
     });
 }
 pullRequests(authorName)
-    .then(function (ids) {
-    core.setOutput('result', { ids: ids });
+    .then(function (result) {
+    core.setOutput('result', result);
 })
     .catch(function (error) { return core.setFailed(error.message); });
 
