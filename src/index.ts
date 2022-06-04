@@ -20,7 +20,10 @@ function pullRequests(author: string) {
       q,
     })
     .then(result => {
-      return result.data.items.map(item => item.number);
+      return {
+        ids: result.data.items.map(item => item.number),
+        html_urls: result.data.items.map(item => item.html_url),
+      };
     });
 }
 

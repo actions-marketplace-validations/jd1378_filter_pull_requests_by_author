@@ -22,6 +22,21 @@ This action provides a matrix containing pull request ids of the given author na
 
 matrix of pull request ids from the given author
 
+has the following structure:
+
+```jsonc
+{
+  "ids": [
+    "<number>",
+    // ...
+  ],
+  "html_urls": [
+    "https://github.com/<repoOwner>/<repo>/pull/<number>",
+    // ...
+  ]
+}
+```
+
 ## Example usage
 
 ```yaml
