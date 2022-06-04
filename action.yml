@@ -4,7 +4,7 @@ description: 'a github action to filter pull requests by their author and make i
 inputs:
   token:
     description: 'github token'
-    required: true
+    default: ${{ github.token }}
   author:  # id of input
     description: 'the author to filter the pull requests by'
     required: true 
