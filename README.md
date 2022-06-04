@@ -8,6 +8,10 @@ This action provides a matrix containing pull request ids of the given author na
 
 **Optional** `GITHUB_TOKEN` or PAT to use for accessing repo data
 
+## `state`
+
+**Optional** `open` or `closed`
+
 ## `author`
 
 **Required** The name of the author to filter pull requests by.
@@ -44,10 +48,11 @@ jobs:
       matrix: ${{ steps.get_pull_requests.outputs.result }}
     steps:
     - id: get_pull_requests
-      uses: jd1378/filter_pull_requests_by_author@v1.0.1
+      uses: jd1378/filter_pull_requests_by_author@v1.1
       with: 
         token: ${{ secrets.GITHUB_TOKEN }}
         author: ${{ github.event.inputs.author }} 
+        state: open
 
   add_comment:
     needs: get_pull_requests_ids
