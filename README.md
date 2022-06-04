@@ -6,7 +6,7 @@ This action provides a matrix containing pull request ids of the given author na
 
 ## `token`
 
-**Required** `GITHUB_TOKEN` to use for accessing repo data
+**Optional** `GITHUB_TOKEN` or PAT to use for accessing repo data
 
 ## `author`
 
