@@ -48,7 +48,7 @@ jobs:
       matrix: ${{ steps.get_pull_requests.outputs.result }}
     steps:
     - id: get_pull_requests
-      uses: jd1378/filter_pull_requests_by_author@v1.1
+      uses: jd1378/filter_pull_requests_by_author@v1.1.1
       with: 
         token: ${{ secrets.GITHUB_TOKEN }}
         author: ${{ github.event.inputs.author }} 
