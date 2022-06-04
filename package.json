@@ -1,0 +1,36 @@
+{
+  "name": "filter_pull_requests_by_author",
+  "version": "1.0.0",
+  "description": "a github action to filter pull requests by their author",
+  "main": "dist/index.js",
+  "repository": "git@github.com:jd1378/filter_pull_requests_by_author.git",
+  "author": "Javad Mnjd <javad.mnjd@hotmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "@actions/core": "^1.8.2",
+    "@actions/github": "^5.0.3"
+  },
+  "keywords": [
+    "actions",
+    "pullrequest",
+    "list",
+    "pr",
+    "filter",
+    "author"
+  ],
+  "scripts": {
+    "compile": "ncc build src/index.ts --license licenses.txt",
+    "lint": "eslint . --ext .ts"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.27.0",
+    "@typescript-eslint/parser": "^5.27.0",
+    "eslint": "^8.17.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-import-resolver-typescript": "^2.7.1",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "prettier": "^2.6.2",
+    "typescript": "^4.7.3"
+  }
+}
