@@ -20,6 +20,6 @@ function pullRequests(author: string) {
 
 pullRequests(authorName)
   .then(ids => {
-    core.setOutput('result', ids);
+    core.setOutput('result', {ids});
   })
   .catch(error => core.setFailed(error.message));
