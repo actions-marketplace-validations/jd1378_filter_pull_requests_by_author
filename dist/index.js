@@ -8882,7 +8882,10 @@ function pullRequests(author) {
         q: q,
     })
         .then(function (result) {
-        return result.data.items.map(function (item) { return item.number; });
+        return {
+            ids: result.data.items.map(function (item) { return item.number; }),
+            html_urls: result.data.items.map(function (item) { return item.html_url; }),
+        };
     });
 }
 pullRequests(authorName)
