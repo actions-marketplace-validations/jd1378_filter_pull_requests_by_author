@@ -8890,7 +8890,8 @@ function pullRequests(author) {
 }
 pullRequests(authorName)
     .then(function (result) {
-    core.setOutput('result', result);
+    core.setOutput('ids', result.ids);
+    core.setOutput('html_urls', result.html_urls);
 })
     .catch(function (error) { return core.setFailed(error.message); });
 

@@ -14,8 +14,10 @@ inputs:
     default: 'open' # closed
 
 outputs:
-  result: # id of output
-    description: 'matrix of pull request ids from the given author'
+  ids: # id of output
+    description: 'array of pull request ids from the given author'
+  html_urls:
+    description: 'array of pull request urls from the given author'
 
 runs:
   using: 'node16'

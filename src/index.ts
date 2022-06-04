@@ -29,6 +29,7 @@ function pullRequests(author: string) {
 
 pullRequests(authorName)
   .then(result => {
-    core.setOutput('result', result);
+    core.setOutput('ids', result.ids);
+    core.setOutput('html_urls', result.html_urls);
   })
   .catch(error => core.setFailed(error.message));
