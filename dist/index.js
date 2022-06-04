@@ -8868,13 +8868,18 @@ var core = __nccwpck_require__(8887);
 var github = __nccwpck_require__(7953);
 var token = core.getInput('token');
 var authorName = core.getInput('author');
+var state = core.getInput('state');
 var repoOwner = github.context.repo.owner;
 var repo = github.context.repo.repo;
 function pullRequests(author) {
     var octokit = github.getOctokit(token);
+    var q = "author:".concat(author, " is:pull-request repo:").concat(repoOwner, "/").concat(repo);
+    if (state) {
+        q += " state:".concat(state);
+    }
     return octokit.rest.search
         .issuesAndPullRequests({
-        q: "author:".concat(author, " is:pull-request repo:").concat(repoOwner, "/").concat(repo),
+        q: q,
     })
         .then(function (result) {
         return result.data.items.map(function (item) { return item.number; });
