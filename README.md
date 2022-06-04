@@ -18,7 +18,7 @@ This action provides a matrix containing pull request ids of the given author na
 
 ## Outputs
 
-## `result`
+## `ids`
 
 matrix of pull request ids from the given author
 
@@ -30,6 +30,17 @@ has the following structure:
     "<number>",
     // ...
   ],
+}
+```
+
+## `html_urls`
+
+matrix of pull request urls from the given author
+
+has the following structure:
+
+```jsonc
+{
   "html_urls": [
     "https://github.com/<repoOwner>/<repo>/pull/<number>",
     // ...
@@ -57,28 +68,45 @@ on:
         
 
 jobs:
-  get_pull_requests_ids:
+  pr_data_job:
     runs-on: ubuntu-latest
     outputs:
-      matrix: ${{ steps.get_pull_requests.outputs.result }}
+      ids: ${{ steps.get_pull_requests_step.outputs.ids }}
+      html_urls: ${{ steps.get_pull_requests_step.outputs.html_urls }}
     steps:
-    - id: get_pull_requests
-      uses: jd1378/filter_pull_requests_by_author@v1.2.1
+    - id: get_pull_requests_step
+      uses: jd1378/filter_pull_requests_by_author@v2
       with: 
         token: ${{ secrets.GITHUB_TOKEN }}
         author: ${{ github.event.inputs.author }} 
         state: open
 
   add_comment:
-    needs: get_pull_requests_ids
+    needs: pr_data_job
     runs-on: ubuntu-latest
     strategy:
-      matrix: ${{fromJson(needs.get_pull_requests_ids.outputs.matrix)}}
+      matrix: 
+        ids: ${{fromJson(needs.pr_data_job.outputs.ids)}}
     steps:
       - name: add comment
         uses: peter-evans/create-or-update-comment@v2
         with:
           issue-number: ${{ matrix.ids }}
           body: ${{ github.event.inputs.comment_body }} 
+
+  ### or merge
+
+  merge:
+    needs: pr_data_job
+    runs-on: ubuntu-latest
+    strategy:
+      matrix: 
+        html_urls: ${{fromJson(needs.pr_data_job.outputs.html_urls)}}
+    steps:
+      - name: merge
+        run: gh pr merge --auto --merge "$PR_URL"
+        env: 
+          PR_URL: ${{ matrix.html_urls }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 ```
